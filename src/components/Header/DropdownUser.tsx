@@ -36,7 +36,7 @@ const DropdownUser = () => {
           <Image
             width={80}
             height={80}
-            src={user.photo}
+            src={user.photo || "/default-avatar.svg"}
             className="rounded-full"
             style={{
               width: "auto",

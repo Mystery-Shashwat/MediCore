@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { loginUser } from "@/lib/actions/user.actions";
 
-export const handler = NextAuth({
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -11,16 +11,30 @@ export const handler = NextAuth({
         password: { label: "Password", type: "password" },
       } as any,
       async authorize(credentials) {
-        if (credentials?.email && credentials?.password) {
+        console.log("NextAuth authorize called with:", credentials?.email);
+        
+        if (!credentials?.email || !credentials?.password) {
+          console.log("Missing credentials");
+          return null;
+        }
+
+        try {
           const user = await loginUser(credentials.email, credentials.password);
+          console.log("Login result:", user ? "Success" : "Failed");
+          
           if (user) {
-            return user;
+            return {
+              id: user._id,
+              email: user.email,
+              name: user.firstName || user.fullname || user.email,
+            };
           } else {
             return null;
           }
+        } catch (error) {
+          console.error("NextAuth authorize error:", error);
+          return null;
         }
-
-        return null;
       },
     }),
   ],
@@ -42,6 +56,11 @@ export const handler = NextAuth({
       return session;
     },
   },
+  pages: {
+    signIn: '/auth-page',
+    error: '/auth-page', // Redirect errors to your auth page
+  },
+  debug: process.env.NODE_ENV === 'development',
   secret: process.env.NEXTAUTH_SECRET,
 });
 

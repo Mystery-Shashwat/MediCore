@@ -44,17 +44,41 @@ export async function createUser(user: CreateUserParams) {
 
 export async function loginUser(email: string, password: string) {
   try {
+    console.log("=== LOGIN ATTEMPT ===");
+    console.log("Email:", email);
+    
     await connectToDatabase();
+    console.log("Database connected successfully");
 
     const user = await User.findOne({ email });
-    if (!user) throw new Error("Invalid credentials");
+    console.log("User found:", user ? "Yes" : "No");
+    
+    if (!user) {
+      console.log("❌ User not found for email:", email);
+      return null; // Return null instead of throwing
+    }
+
+    console.log("User data:", {
+      id: user._id,
+      email: user.email,
+      firstName: user.firstName,
+      hasPassword: !!user.password
+    });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) throw new Error("Invalid credentials");
+    console.log("Password match:", isMatch ? "✅ Yes" : "❌ No");
+    
+    if (!isMatch) {
+      console.log("❌ Password mismatch for user:", email);
+      return null; // Return null instead of throwing
+    }
 
+    console.log("✅ Login successful for user:", email);
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
-    handleError(error);
+    console.error("💥 Login error:", error);
+    // Don't use handleError here as it throws - just log and return null
+    return null;
   }
 }
 

@@ -22,7 +22,7 @@ const ChartThree: React.FC = () => {
           <div className="flex items-start gap-2.5">
             <img
               className="h-8 w-8 rounded-full"
-              src={user.photo}
+              src={user.photo || "/default-avatar.svg"}
               alt="Jese image"
             />
 

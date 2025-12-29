@@ -15,7 +15,7 @@ import {
     const [user, setUser] = useState({
       firstName: "John",
       lastName: "Doe",
-      photo: "/images/user/user-01.png",
+      photo: "/default-avatar.svg",
       jobTitle: "Drug Researcher",
       userBio: "",
     });
@@ -27,7 +27,7 @@ import {
           setUser({
             firstName: fetchedUser?.firstName || "John",
             lastName: fetchedUser?.lastName || "Doe",
-            photo: fetchedUser?.photo || "/images/user/user-01.png",
+            photo: fetchedUser?.photo || "/default-avatar.svg",
             jobTitle: fetchedUser?.jobTitle || "Researcher",
             userBio: fetchedUser?.userBio || "",
           });

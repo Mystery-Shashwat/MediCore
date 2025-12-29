@@ -31,7 +31,7 @@ const Settings = () => {
           lastName: user.lastName,
           email: user.email,
           userBio: user.userBio || "",
-          photo: user.photo || "/images/user/user-03.png",
+          photo: user.photo || "/default-avatar.svg",
           id: user._id,
         });
       }

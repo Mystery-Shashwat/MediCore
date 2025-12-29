@@ -1,17 +1,19 @@
 import React from "react";
+import Modal from "@/components/common/Modal";
 
-const Modal: React.FC<ModalProps> = ({ id, title, content, onCloseText }) => {
+// Page component for the modals demo/showcase
+export default function ModalsPage() {
   return (
-    <dialog id={id} className="modal">
-      <div className="modal-box bg-[#ffffff] text-black dark:bg-[#181818] dark:text-white">
-        <h3 className="text-lg font-bold">{title}</h3>
-        <div className="py-4">{content}</div>
-        <div className="modal-action">
-          <form method="dialog"></form>
-        </div>
-      </div>
-    </dialog>
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Modal Components</h1>
+      <p className="mb-4">This page showcases modal components used throughout the application.</p>
+      
+      <Modal
+        id="example-modal"
+        title="Example Modal"
+        content={<p>This is an example modal content.</p>}
+        onCloseText="Close"
+      />
+    </div>
   );
-};
-
-export default Modal;
+}

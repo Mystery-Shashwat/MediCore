@@ -66,7 +66,7 @@ function ChatBox() {
       ...msg,
       connectionId: msg.sender._id,
       name: `${msg.sender.firstName} ${msg.sender.lastName}`,
-      image: msg.sender.photo || "/default-avatar.png",
+      image: msg.sender.photo || "/default-avatar.svg",
       data: msg.text,
       timestamp: msg.timestamp,
     }));
@@ -119,7 +119,7 @@ function ChatBox() {
         >
           <div className="mb-2 flex items-center">
             <img
-              src={message.image || "/default-avatar.png"}
+              src={message.image || "/default-avatar.svg"}
               alt={message.name}
               className="mr-2 h-8 w-8 rounded-full"
             />

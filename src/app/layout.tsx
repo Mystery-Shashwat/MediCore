@@ -2,6 +2,7 @@
 import "jsvectormap/dist/jsvectormap.css";
 import "flatpickr/dist/flatpickr.min.css";
 import "@/css/style.css";
+import Script from "next/script";
 import React, { useEffect, useState } from "react";
 
 import Loader from "@/components/common/Loader";
@@ -27,9 +28,11 @@ export default function RootLayout({
   });
   return (
     <html lang="en">
-      {/* <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script> */}
-      <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script>
       <body suppressHydrationWarning={true}>
+        <Script 
+          src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"
+          strategy="beforeInteractive"
+        />
         <SessionProvider>
           <UserProvider>
             <AblyProvider client={client}>
